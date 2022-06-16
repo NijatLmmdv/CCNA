@@ -1,0 +1,193 @@
+# Commands
+
+## DHCP
+
+Router(config)#int fa0/0
+
+Router(config-if)#ip address 192.168.0.1 255.255.255.0
+
+Router(config-if)#no shutdown
+
+Router(config-if)#
+
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#do write memory
+
+Building configuration...
+
+[OK]
+
+Router(config-if)#ip dhcp pool net1
+
+Router(dhcp-config)#network 192.168.0.1 255.255.255.0
+
+Router(dhcp-config)#exit
+
+## Inter-VLAN
+
+Switch(config)#vlan 12
+Switch(config-vlan)#name IT
+Switch(config-vlan)#exit
+Switch(config)#vlan 45
+Switch(config-vlan)#name Sales
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#name Ops
+Switch(config-vlan)#exit
+Switch(config)#int fa
+
+Switch(config-if)#switchport access vlan 12
+Switch(config-if)#exit
+Switch(config)#int fa0/2
+Switch(config-if)#switchport access vlan 12
+Switch(config-if)#exit
+Switch(config)#int fa0/3
+Switch(config-if)#switchport access vlan 45
+Switch(config-if)#exit
+Switch(config)#int fa0/4
+Switch(config-if)#switchport access vlan 45
+Switch(conig-if)#exit
+Switch(config)#int fa0/5
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
+Switch(config)#int fa0/6
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
+
+Switch(config)#int gig0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#exit
+Switch(config)#exit
+
+Router>en
+
+Router#conf t
+
+Enter configuration commands, one per line.  End with CNTL/Z.
+
+Router(config)#int gig0/0.12
+
+Router(config-subif)#encap dot1q 12
+
+Router(config-subif)#ip address 192.168.10.1 255.255.255.0
+
+Routip address 192.168.10.enint gig0/0.12int gig0/0.45
+
+## OSPF
+
+en
+
+conf t
+
+int serial 0/0/0
+
+ip address 192.168.20.1 255.255.255.0
+
+clock rate 72000
+
+no shutdown
+
+int fa0/0
+
+ip address 192.168.10.1 255.255.255.0
+
+no shutdown
+
+exit
+
+router ospf 1
+
+network 192.168.10.0 0.0.0.255 area 0
+
+network 192.168.20.0 0.0.0.255 area 0
+
+exit
+
+copy running-config startup-config
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Addresses	Hosts	Netmask	Amount of a Class C
+/30	4	2	255.255.255.252	1/64
+/29	8	6	255.255.255.248	1/32
+/28	16	14	255.255.255.240	1/16
+/27	32	30	255.255.255.224	1/8
+/26	64	62	255.255.255.192	1/4
+/25	128	126	255.255.255.128	1/2
+/24	256	254	255.255.255.0	1
+/23	512	510	255.255.254.0	2
+/22	1024	1022	255.255.252.0	4
+/21	2048	2046	255.255.248.0	8
+/20	4096	4094	255.255.240.0	16
+/19	8192	8190	255.255.224.0	32
+/18	16384	16382	255.255.192.0	64
+/17	32768	32766	255.255.128.0	128
+/16	65536	65534	255.255.0.0	256
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/32	255.255.255.255	1	1
+/31	255.255.255.254	2	2
+/30	255.255.255.252	4	2
+/29	255.255.255.248	8	6
+/28	255.255.255.240	16	14
+/27	255.255.255.224	32	30
+/26	255.255.255.192	64	62
+/25	255.255.255.128	128	126
+/24	255.255.255.0	256	254
+/23	255.255.254.0	512	510
+/22	255.255.252.0	1024	1022
+/21	255.255.248.0	2048	2046
+/20	255.255.240.0	4096	4094
+/19	255.255.224.0	8192	8190
+/18	255.255.192.0	16,384	16,382
+/17	255.255.128.0	32,768	32,766
+/16	255.255.0.0	65,536	65,534
+/15	255.254.0.0	131,072	131,070
+/14	255.252.0.0	262,144	262,142
+/13	255.248.0.0	524,288	524,286
+/12	255.240.0.0	1,048,576	1,048,574
+/11	255.224.0.0	2,097,152	2,097,150
+/10	255.192.0.0	4,194,304	4,194,302
+/9	255.128.0.0	8,388,608	8,388,606
+/8	255.0.0.0	16,777,216	16,777,214
+/7	254.0.0.0	33,554,432	33,554,430
+/6	252.0.0.0	67,108,864	67,108,862
+/5	248.0.0.0	134,217,728	134,217,726
+/4	240.0.0.0	268,435,456	268,435,454
+/3	224.0.0.0	536,870,912	536,870,910
+/2	192.0.0.0	1,073,741,824	1,073,741,822
+/1	128.0.0.0	2,147,483,648	2,147,483,646
